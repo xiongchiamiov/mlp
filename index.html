@@ -1,0 +1,118 @@
+<html>
+<head>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/mootools/1.3.1/mootools-yui-compressed.js"></script>
+	<script type="text/javascript" src="media/js/mootools-more-1.3.1.1.js"></script>
+	<script type="text/javascript">
+	window.addEvent('domready', function() {
+		var images = {
+			"ponies/0b1e74a8a6ca9d291d669692d09a0580.gif": {
+				"emotion": "",
+				"caption": "and I got my eye on you!",
+				"pinkie": true,
+				"gilda": true
+			},
+			"ponies/0b1e4010317b435e02ba1e81bdc877f3.gif": {
+				"emotion": "happy",
+				"apple bloom": true
+			},
+			"ponies/0bd7d3252ff852163b9da9cf3c9e0976.jpg": {
+				"emotion": "fear",
+				"caption": "Haters gonna... exterminate!",
+				"dr. whoof": true
+			},
+			"ponies/0c74e5751f39f67e0151821e7f4d88f2.png": {
+				"emotion": "determination",
+				"fluttershy": true
+			}
+		};
+
+		$('filter-emotion').addEvent('click', function() {
+			var value = this.value;
+			if (value == 'any') {
+				$$('#images img').show();
+			} else {
+				$$('#images img').each(function(image) {
+					if (images[image.get('src')]["emotion"] == value) {
+						image.show();
+					} else {
+						image.hide();
+					}
+				});
+			}
+		});
+
+		$('filter-caption').addEvent('click', function() {
+			var value = this.value;
+			if (value == 'any') {
+				$$('#images img').show();
+			} else {
+				value = value == 'yes';
+				$$('#images img').each(function(image) {
+					if (Boolean(images[image.get('src')]["caption"]) == value) {
+						image.show();
+					} else {
+						image.hide();
+					}
+				});
+			}
+		});
+
+		$('filter-character').addEvent('click', function() {
+			var value = this.value;
+			if (value == 'any') {
+				$$('#images img').show();
+			} else {
+				$$('#images img').each(function(image) {
+					if (images[image.get('src')][value]) {
+						image.show();
+					} else {
+						image.hide();
+					}
+				});
+			}
+		});
+
+		Object.each(images, function(item, key) {
+			var a = new Element('a');
+			a.set('href', key);
+			var img = new Element('img');
+			img.set('src', key);
+			a.grab(img);
+			$('images').grab(a);
+		});
+	});
+	</script>
+	<style type="text/css">
+		img {
+			height: 150px;
+			margin: 3px 5px;
+		}
+	</style>
+</head>
+<body>
+	<div id="filters">
+		<select id="filter-emotion">
+			<option value="any">any</option>
+			<option value="determination">determination</option>
+			<option value="fear">fear</option>
+			<option value="happy">happy</option>
+		</select>
+		<select id="filter-caption">
+			<option value="any">any</option>
+			<option value="yes">yes</option>
+			<option value="no">no</option>
+		</select>
+		<select id="filter-character">
+			<option value="any">any</option>
+			<option value="apple bloom">apple bloom</option>
+			<option value="dr. whoof">dr. whoof</option>
+			<option value="fluttershy">fluttershy</option>
+			<option value="gilda">gilda</option>
+			<option value="pinkie">pinkie</option>
+		</select>
+	</div>
+	<div id="images">
+	</div>
+</body>
+</html>
+
